@@ -1,17 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import Header from '../components/Header.js';
-import MainComponent from './MainComponent.js';
+import Main from './Main.js';
 import Footer from '../components/Footer.js';
-// import iconClose from '../image/Close-Icon.svg';
 import PopupWithForm from './PopupWithForm.js';
-// import ImagePopup from './ImagePopup.js';
+import Card from './Card.js';
+import ImagePopup from './ImagePopup.js';
+import api from '../utils/api.js';
+
+
 
 function App() {
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
+
+    const [cards, setCards] = useState ([]);
+
+    useEffect(() => {
+        api.getTasksCards()
+        .then (res => {
+        setCards(res)
+     })}, [])
+
 
 
     function handleEditProfileClick() {
@@ -30,17 +43,38 @@ function App() {
         setIsEditProfilePopupOpen (false)
         setIsAddPlacePopupOpen (false)
         setIsEditAvatarPopupOpen (false)
+        setSelectedCard(null)
+    }
+
+    function handleCardClick (card) {
+        setSelectedCard(card)
     }
 
     return (
     <div className="page">
         <Header />
-        <MainComponent 
+        <Main
             onAddPlace = {handleAddPlaceClick}
             onEditProfile = {handleEditProfileClick}
             onEditAvatar = {handleEditAvatarClick}
         />
+
+        <ul className="element">
+            {cards.map ((item) => {
+                return (
+                <Card
+                key = {item._id}
+                name = {item.name}
+                link = {item.link}
+                onCardClick = {handleCardClick}
+                />)
+            })}
+        </ul>
+
         <Footer />
+        <ImagePopup
+           card = {selectedCard} onClose = {closeAllPopups}
+        />
         <PopupWithForm name = 'edit' title = 'Редактировать профиль' isOpen = {isEditProfilePopupOpen} onClose = {closeAllPopups}>
             <input
                 id="type-name"
@@ -103,6 +137,8 @@ function App() {
                 <span className="popup__error" id="type-avatar-error"></span>
                 <button className="popup__button popup__button_type_avatar" type="submit">Сохранить</button>
         </PopupWithForm>
+
+        {/* <PopupWithForm name = '' title = 'Обновить аватар' isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups}></PopupWithForm> */}
 
         <PopupWithForm name = 'consent' title = 'Вы уверены?' onClose = {closeAllPopups}>
             <button className="popup__button popup__button_type_consent" type="submit">да</button>

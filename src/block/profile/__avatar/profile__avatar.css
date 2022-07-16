@@ -8,7 +8,7 @@
 }
 
 .profile__avatar:hover::before {
-    background: rgba(0,0,0, 0.8) url(/src/image/pencilAvatar.svg)  no-repeat 50%;
+    background: rgba(0,0,0, 0.8) url(../../../image/pencilAvatar.svg)  no-repeat 50%;
     opacity: 0.8;
 }
 
