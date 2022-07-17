@@ -20,4 +20,3 @@ function PopupWithForm (props) {
 }
 
 export default PopupWithForm;
-// className={`popup popup_type_${props.name}`}

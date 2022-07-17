@@ -57,19 +57,19 @@ function App() {
                     type="text"
                     name="nameProfile"
                     placeholder="Имя"
-                    minlength="2"
-                    maxlength="40"
+                    minLength="2"
+                    maxLength="40"
                     required
                 />
-                <span class="popup__error type-name-error"></span>
+                <span className="popup__error type-name-error"></span>
                 <input
                     id="type-about"
                     className="popup__input popup__input_type_about"
                     type="text"
                     name="aboutProfile"
                     placeholder="Кратко о себе"
-                    minlength="2"
-                    maxlength="400"
+                    minLength="2"
+                    maxLength="400"
                     required
                 />
                 <span className="popup__error" id="type-about-error"></span>
@@ -82,8 +82,8 @@ function App() {
                     name="nameCard"
                     placeholder="Название"
                     required
-                    minlength="2"
-                    maxlength="30"
+                    minLength="2"
+                    maxLength="30"
                 />
                 <span className="popup__error" id="type-title-error"></span>
                 <input
