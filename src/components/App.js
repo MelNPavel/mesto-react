@@ -8,50 +8,40 @@ import Card from './Card.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 
-
-
 function App() {
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
-
-    const [cards, setCards] = useState([]);
-
-    useEffect(() => {
-        api.getTasksCards()
-            .then(res => {
-                setCards(res)
-            })
-            .catch((err) => {
-                console.log ('Ошибка' + err);
-            })
-    }, [cards])
-
-
+    const [cardFirst, setCardFirst] = useState([]);
 
     function handleEditProfileClick() {
-        setIsEditProfilePopupOpen(true)
+        setIsEditProfilePopupOpen(true);
     }
 
     function handleAddPlaceClick() {
-        setIsAddPlacePopupOpen(true)
+        setIsAddPlacePopupOpen(true);
     }
 
     function handleEditAvatarClick() {
-        setIsEditAvatarPopupOpen(true)
+        setIsEditAvatarPopupOpen(true);
     }
 
     function closeAllPopups() {
-        setIsEditProfilePopupOpen(false)
-        setIsAddPlacePopupOpen(false)
-        setIsEditAvatarPopupOpen(false)
-        setSelectedCard(null)
+        setIsEditProfilePopupOpen(false);
+        setIsAddPlacePopupOpen(false);
+        setIsEditAvatarPopupOpen(false);
+        setSelectedCard(null);
     }
 
     function handleCardClick(card) {
-        setSelectedCard(card)
+        setSelectedCard(card);
+    }
+
+    function cardsFirst(cards) {
+        setCardFirst(cards);
+
     }
 
     return (
@@ -61,21 +51,20 @@ function App() {
                 onAddPlace={handleAddPlaceClick}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
-            />
+                getCardsFirst={cardsFirst}
+            >
 
-            <ul className="element">
-                {cards.map((item) => {
-                    return (
-                        <Card
-                            key={item._id}
-                            name={item.name}
-                            link={item.link}
-                            like={item.likes.length}
-                            onCardClick={handleCardClick}
-                        />)
-                })}
-            </ul>
-
+            {cardFirst.map((item) => {
+                return (
+                    <Card
+                        key={item._id}
+                        name={item.name}
+                        link={item.link}
+                        like={item.likes.length}
+                        onCardClick={handleCardClick}
+                    />)
+            })}
+            </Main>
             <Footer />
             <ImagePopup
                 card={selectedCard} onClose={closeAllPopups}

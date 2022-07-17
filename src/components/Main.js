@@ -10,6 +10,7 @@ function Main(props) {
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
+    const [cards, setCards] = useState([]);
 
     useEffect(() => {
         api.getTasksUser()
@@ -22,6 +23,22 @@ function Main(props) {
                 console.log ('Ошибка' + err);
               })
     })
+
+    useEffect(() => {
+        api.getTasksCards()
+            .then(res => {
+                setCards(res)
+            })
+            .catch((err) => {
+                console.log ('Ошибка' + err);
+            })
+    }, [cards])
+
+    function getCards(cards) {
+        props.getCardsFirst(cards)
+    }
+
+    getCards(cards)
 
     return (
         <main className="main">
@@ -46,6 +63,10 @@ function Main(props) {
                     <img className="profile__add-image" src={buttonAdd} alt="Кнопка добавления" />
                 </button>
             </section>
+            <ul className="element">
+                {props.children}
+            </ul>
+
 
         </main>
     )
