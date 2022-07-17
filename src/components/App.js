@@ -69,7 +69,7 @@ function App() {
             <ImagePopup
                 card={selectedCard} onClose={closeAllPopups}
             />
-            <PopupWithForm name='edit' title='Редактировать профиль' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+            <PopupWithForm name='edit' title='Редактировать профиль' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText = 'Сохранить'>
                 <input
                     id="type-name"
                     className="popup__input popup__input_type_name"
@@ -92,11 +92,8 @@ function App() {
                     required
                 />
                 <span className="popup__error" id="type-about-error"></span>
-                <button className="popup__button" type="submit">Сохранить</button>
             </PopupWithForm>
-
-            <PopupWithForm name='add' title='Новое место' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-
+            <PopupWithForm name='add' title='Новое место' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText = 'Создать'>
                 <input
                     id="type-title"
                     className="popup__input popup__input_type_title"
@@ -117,9 +114,8 @@ function App() {
                     required
                 />
                 <span className="popup__error" id="type-image-error"></span>
-                <button className="popup__button popup__button_place_add" type="submit">Создать</button>
             </PopupWithForm>
-            <PopupWithForm name='avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+            <PopupWithForm name='avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText = 'Сохранить'>
                 <input
                     id="type-avatar"
                     className="popup__input popup__input_type_avatar"
@@ -129,14 +125,8 @@ function App() {
                     required
                 />
                 <span className="popup__error" id="type-avatar-error"></span>
-                <button className="popup__button popup__button_type_avatar" type="submit">Сохранить</button>
             </PopupWithForm>
-
-            {/* <PopupWithForm name = '' title = 'Обновить аватар' isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups}></PopupWithForm> */}
-
-            <PopupWithForm name='consent' title='Вы уверены?' onClose={closeAllPopups}>
-                <button className="popup__button popup__button_type_consent" type="submit">да</button>
-            </PopupWithForm>
+            <PopupWithForm name='consent' title='Вы уверены?' onClose={closeAllPopups} buttonText = 'да' />
         </div>
     );
 }
