@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import buttonEdit from '../image/button-edit.svg';
 import buttonAdd from '../image/add-button.svg';
 import Card from './Card.js';
-
 import api from '../utils/api.js';
 
 function Main(props) {
@@ -34,13 +33,10 @@ function Main(props) {
                 console.log ('Ошибка' + err);
             })
     }, [])
-
     
    function getCardsClick(cards) {
         props.cardClick(cards)
     }
-
-    // getCards(cards)
 
     return (
         <main className="main">
