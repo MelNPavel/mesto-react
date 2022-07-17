@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import buttonEdit from '../image/button-edit.svg';
 import buttonAdd from '../image/add-button.svg';
+import Card from './Card.js';
 
 import api from '../utils/api.js';
 
@@ -22,7 +23,7 @@ function Main(props) {
             .catch((err) => {
                 console.log ('Ошибка' + err);
               })
-    })
+    }, [])
 
     useEffect(() => {
         api.getTasksCards()
@@ -32,13 +33,14 @@ function Main(props) {
             .catch((err) => {
                 console.log ('Ошибка' + err);
             })
-    }, [cards])
+    }, [])
 
-    function getCards(cards) {
-        props.getCardsFirst(cards)
+    
+   function getCardsClick(cards) {
+        props.cardClick(cards)
     }
 
-    getCards(cards)
+    // getCards(cards)
 
     return (
         <main className="main">
@@ -63,8 +65,18 @@ function Main(props) {
                     <img className="profile__add-image" src={buttonAdd} alt="Кнопка добавления" />
                 </button>
             </section>
+            
             <ul className="element">
-                {props.children}
+                {cards.map((item) => {
+                    return (
+                        <Card
+                            key={item._id}
+                            name={item.name}
+                            link={item.link}
+                            like={item.likes.length}
+                            onCardClick={getCardsClick}
+                        />)
+                })}
             </ul>
 
 
@@ -73,5 +85,3 @@ function Main(props) {
 };
 
 export default Main;
-
-

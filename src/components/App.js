@@ -4,7 +4,6 @@ import Header from '../components/Header.js';
 import Main from './Main.js';
 import Footer from '../components/Footer.js';
 import PopupWithForm from './PopupWithForm.js';
-import Card from './Card.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 
@@ -14,8 +13,7 @@ function App() {
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
-    const [cardFirst, setCardFirst] = useState([]);
-
+    
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
     }
@@ -37,12 +35,7 @@ function App() {
 
     function handleCardClick(card) {
         setSelectedCard(card);
-    }
-
-    function cardsFirst(cards) {
-        setCardFirst(cards);
-
-    }
+    }  
 
     return (
         <div className="page">
@@ -51,20 +44,9 @@ function App() {
                 onAddPlace={handleAddPlaceClick}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
-                getCardsFirst={cardsFirst}
-            >
+                cardClick={handleCardClick}
+            />
 
-            {cardFirst.map((item) => {
-                return (
-                    <Card
-                        key={item._id}
-                        name={item.name}
-                        link={item.link}
-                        like={item.likes.length}
-                        onCardClick={handleCardClick}
-                    />)
-            })}
-            </Main>
             <Footer />
             <ImagePopup
                 card={selectedCard} onClose={closeAllPopups}
