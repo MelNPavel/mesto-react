@@ -57,3 +57,6 @@
 @import url(./block/popup/__input/_type_error/popup__input_type_error.css);
 
 @import url(./block/popup/__container/_type_consent/popup__container_type_consent.css);
+
+@import url(./block/element/__card-remove/_hidden/element__card-remove_hidden.css);
+@import url(./block/element/__card-remove/_visible/element__card-remove_visible.css);

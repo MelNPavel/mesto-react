@@ -6,7 +6,7 @@ class Api{
         this.headers = headers
     };
 
-getTasksUser() {
+getUserInfo() {
     return fetch (`${this.url}users/me`, {
             headers: this.headers
     })
