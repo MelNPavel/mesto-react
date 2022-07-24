@@ -4,7 +4,7 @@ class Api{
     constructor ({url, headers}) {
         this.url = url;
         this.headers = headers
-    };
+};
 
 getUserInfo() {
     return fetch (`${this.url}users/me`, {
@@ -77,7 +77,7 @@ avatar(data) {
 
 _checkResponse(res) {
     if (res.ok) {
-         return res.json();
+        return res.json();
      }
      return Promise.reject(`Ошибка: ${res.status}`);
 }

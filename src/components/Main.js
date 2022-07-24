@@ -1,58 +1,17 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import buttonEdit from '../image/button-edit.svg';
 import buttonAdd from '../image/add-button.svg';
 import Card from './Card.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import { CardContext } from '../context/CardContext.js';
-import api from '../utils/api.js';
 
-
-
-function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick}) {
-    
-    const [cards, setCards] = useState([]);
+function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick, cards, onCardLike, onCardDelete}) {
     
     const currentUser = React.useContext(CurrentUserContext);
-
-    useEffect(() => {
-        api.getTasksCards()
-            .then(res => {
-                setCards(res)
-            })
-            .catch((err) => {
-                console.log ('Ошибка' + err);
-            })
-    }, [])
-
+    
     function getCardsClick(card) {
         cardClick(card)
     }
-
-    function handleCardLike(card) {
-        const isLiked = card.likeUser.some(i => i.cardId === currentUser._id);
-        api.likePut(card.cardId, !isLiked)
-            .then((newCard) => {
-                setCards((state) => state.map(
-                    (c) => c._id === card.cardId ? newCard : c))})
-            .catch((err) => {
-                console.log ('Ошибка' + err);
-            })
-        api.likeUnPut(card.cardId, isLiked)
-            .then((newCard) => {
-                setCards((state) => state.map(
-                (c) => c._id === card.cardId ? newCard : c))})
-            .catch((err) => {
-                console.log ('Ошибка' + err);
-             })
-    } 
-
-    function handleCardDelete(card) {
-        api.deleteCard(card.cardId)
-            .then ((res) => {
-                setCards(res)
-                })                
-            }
-    
 
     return (
         <CardContext.Provider value={cards}>
@@ -91,8 +50,8 @@ function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick}) {
                                 like={item.likes.length}
                                 ownerId={item.owner._id}
                                 onCardClick={getCardsClick}
-                                onCardLike={handleCardLike}
-                                onCardDelete={handleCardDelete}
+                                onCardLike={onCardLike}
+                                onCardDelete={onCardDelete}
                             />)
                     })}
                 </ul>

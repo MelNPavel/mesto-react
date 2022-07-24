@@ -1,18 +1,14 @@
 import React from 'react';
 
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
-import { CardContext } from '../context/CardContext.js';
-
-
 
 function Card (props) {
 
-   const currentUser = React.useContext(CurrentUserContext);
-    // const card = React.useContext(CardContext);
-
-   const isOwn = props.ownerId === currentUser._id;
-   const cardDeleteButtonClassName = (
-      `element__card-remove ${isOwn ? 'element__card-remove_visible' : 'element__card-remove_hidden'}`
+    const currentUser = React.useContext(CurrentUserContext);
+ 
+    const isOwn = props.ownerId === currentUser._id;
+    const cardDeleteButtonClassName = (
+        `element__card-remove ${isOwn ? 'element__card-remove_visible' : 'element__card-remove_hidden'}`
     ); 
 
     function handleDeleteClick() {
@@ -28,7 +24,7 @@ function Card (props) {
 
     function handleClick() {
         props.onCardClick(props);
-      }
+    }
 
     return (
         <li className="element__card">
