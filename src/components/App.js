@@ -18,7 +18,7 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-    const [currentUser, setcurrentUser] = useState([]);
+    const [currentUser, setcurrentUser] = useState('');
     const [cards, setCards] = useState([]);
 
     function handleEditProfileClick() {
@@ -113,8 +113,7 @@ function App() {
     function handleCardDelete(card) {
         api.deleteCard(card.cardId)
             .then ((res) => {
-                const cardFilter = cards.filter(item => item._id !== card.cardId)
-                setCards(cardFilter)
+                setCards(prevCards=> prevCards.filter(item => item._id !== card.cardId))
             })
             .catch((err) => {
                 console.log ('Ошибка' + err);

@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 export function AddPlacePopup(props) {
@@ -14,7 +14,6 @@ export function AddPlacePopup(props) {
         setLink(e.target.value);
     }
 
-
     function handleAddPlaceSubmit(e) {
         e.preventDefault();
         
@@ -22,8 +21,12 @@ export function AddPlacePopup(props) {
             name,
             link
         })
-
     }
+
+    useEffect(()=>{
+        setName('');
+        setLink('');
+    }, [props.isOpen]);
 
     return(
         <PopupWithForm name='add' title='Новое место' isOpen={props.isOpen} onClose={props.onClose} buttonText = 'Создать' onSubmit={handleAddPlaceSubmit}>
@@ -37,6 +40,7 @@ export function AddPlacePopup(props) {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeNamePlace}
+                value={name}
             />
             <span className="popup__error" id="type-title-error"></span>
             <input
@@ -47,6 +51,7 @@ export function AddPlacePopup(props) {
                 placeholder="Ссылка на картинку"
                 required
                 onChange={handleChangeLink}
+                value={link}
             />
             <span className="popup__error" id="type-image-error"></span>
         </PopupWithForm>
