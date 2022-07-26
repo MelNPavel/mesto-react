@@ -9,7 +9,12 @@ export function EditProfilePopup(props) {
 
     const currentUser = React.useContext(CurrentUserContext);
 
-   
+    useEffect(() => {
+        if(currentUser) {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }}, [currentUser, props.isOpen]); 
+
     function handleChangeName(e) {
         setName(e.target.value);
     }
@@ -25,13 +30,6 @@ export function EditProfilePopup(props) {
             about: description,
         });
     }
-
-    useEffect(() => {
-        if(currentUser) {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-    }}, [currentUser, props.isOpen]); 
-
         
     return(
         <PopupWithForm name='edit' title='Редактировать профиль' isOpen={props.isOpen} onClose={props.onClose} buttonText = 'Сохранить' onSubmit={handleSubmit}>

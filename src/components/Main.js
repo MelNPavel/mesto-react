@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import buttonEdit from '../image/button-edit.svg';
 import buttonAdd from '../image/add-button.svg';
 import Card from './Card.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
-
 function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick, cards, onCardLike, onCardDelete}) {
     
     const currentUser = React.useContext(CurrentUserContext);
     
+    const[avatar, setAvatar]=useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if(currentUser) {
+        setAvatar(currentUser.avatar);
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }}, [currentUser]);
+
     function getCardsClick(card) {
         cardClick(card)
     }
@@ -20,16 +30,16 @@ function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick, cards, onCard
                     <a
                         className="profile__avatar"
                         onClick={onEditAvatar}
-                        style={{ backgroundImage: `url(${currentUser.avatar})` }}
+                        style={{ backgroundImage: `url(${avatar})` }}
                     ></a>
                     <div className="profile__info">
                         <div className="profile__info-item">
-                            <h1 className="profile__info-name">{currentUser.name}</h1>
+                            <h1 className="profile__info-name">{name}</h1>
                             <button className="profile__edit-button" type="button" onClick={onEditProfile}>
                                 <img className="profile__edit-icon" src={buttonEdit} alt="Кнопка редактирования" />
                             </button>
                         </div>
-                        <p className="profile__info-about">{currentUser.about}</p>
+                        <p className="profile__info-about">{description}</p>
                     </div>
                 </div>
                 <button className="profile__add-button" type="button" onClick={onAddPlace} >
