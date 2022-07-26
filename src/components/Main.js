@@ -8,7 +8,7 @@ function Main({onAddPlace, onEditProfile, onEditAvatar, cardClick, cards, onCard
     
     const currentUser = React.useContext(CurrentUserContext);
     
-    const[avatar, setAvatar]=useState('');
+    const [avatar, setAvatar]=useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
